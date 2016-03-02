@@ -3,17 +3,41 @@ document.getElementById("insertbooklink").onclick = showaddform;
 document.getElementById("searchbooklink").onclick = showsearchform;
 document.getElementById("searchCriteria").onchange = searchCriteria;
 
-function hideall() {
-	document.getElementById("addBookDiv").style.display = 'none';
-	document.getElementById("listBooksDiv").style.display = 'none';
-	document.getElementById("searchBookDiv").style.display = 'none';
-	document.getElementById("updateBookDiv").style.display = 'none';
+function showsearchform() {
+	hidediv("addBookDiv");
+	hidediv("listBooksDiv");
+	showdiv("searchBookDiv");
+	hidediv("updateBookDiv");
 }
 
-function showsearchform() {
-	document.getElementById("searchBookDiv").style.display = 'block';
-	document.getElementById("addBookDiv").style.display = 'none';
-	document.getElementById("listBooksDiv").style.display = 'none';
+function showaddform() {
+	showdiv("addBookDiv");
+	hidediv("listBooksDiv");
+	hidediv("searchBookDiv");
+	hidediv("updateBookDiv");
+}
+
+function showBooksList() {
+	hidediv("addBookDiv");
+	showdiv("listBooksDiv");
+	hidediv("searchBookDiv");
+	hidediv("updateBookDiv");
+	showList();
+}
+
+function showUpdateForm() {
+	hidediv("addBookDiv");
+	hidediv("listBooksDiv");
+	hidediv("searchBookDiv");
+	showdiv("updateBookDiv");
+}
+
+function hideaddform() {
+	hidediv("addBookDiv");
+}
+
+function hideUpdateForm() {
+	hidediv("updateBookDiv");
 }
 
 function searchCriteria() {
@@ -83,27 +107,6 @@ function searchBook(selectedValue) {
 		alert("No book found.");
 }
 
-function showaddform() {
-	document.getElementById("addBookDiv").style.display = 'block';
-	document.getElementById("listBooksDiv").style.display = 'none';
-	document.getElementById("searchBookDiv").style.display = 'none';
-}
-
-function hideaddform() {
-	document.getElementById("addBookDiv").style.display = 'none';
-}
-
-function hideupdateform() {
-	document.getElementById("updateBookDiv").style.display = 'none';
-}
-
-function showBooksList() {
-	document.getElementById("listBooksDiv").style.display = 'block';
-	document.getElementById("searchBookDiv").style.display = 'none';
-	hideaddform();
-	showList();
-}
-
 function addBook() {
 	if (validateInsertForm()) {
 		var b1 = new Book();
@@ -133,9 +136,10 @@ function validateInsertForm() {
 			|| document.getElementById("numPages").value == ""
 			|| document.getElementById("txtPublisher").value == "";
 
-	if (isEmpty)
+	if (isEmpty) {
+		alert("Please complete the form");
 		return false;
-
+	}
 	if (document.getElementById("numEdition").value < 1) {
 		alert("Edition cannot be less than 1");
 		return false;
@@ -253,9 +257,7 @@ function deleteBook(i) {
 }
 
 function updateBookForm(i) {
-	document.getElementById("updateBookDiv").style.display = 'block';
-	document.getElementById("listBooksDiv").style.display = 'none';
-	document.getElementById("searchBookDiv").style.display = 'none';
+	showUpdateForm();
 
 	document.getElementById("txtUpdateBookName").value = bookList[i].getName();
 	document.getElementById("txtUpdateBookAuthor").value = bookList[i]
@@ -267,13 +269,12 @@ function updateBookForm(i) {
 	document.getElementById("numUpdatePages").value = bookList[i].getPages();
 	document.getElementById("txtUpdatePublisher").value = bookList[i]
 			.getPublisher();
-
+	
 	document.getElementById("updateBookButton").setAttribute("onclick",
 			"return updateBook(" + i + ")");
 }
 
 function updateBook(i) {
-	console.log(document.getElementById("numUpdateEdition").value);
 	if (validateUpdateForm()) {
 		var b1 = new Book();
 		b1.setName(document.getElementById("txtUpdateBookName").value);
