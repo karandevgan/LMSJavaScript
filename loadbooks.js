@@ -72,23 +72,23 @@ var bookList = [];
 
 (function() {
 	hideall();
-	var b1 = new Book();
-	b1.setName("Spring Pro");
-	b1.setAuthor("Karan");
-	b1.setEdition(2);
-	b1.setIsbn("123-123-123");
-	b1.setPages(324);
-	b1.setPrice(200);
-	b1.setPublisher("Pearson");
+	var httpRequest = new XMLHttpRequest();
 
-	var b2 = new Book();
-	b2.setName("Hibernate Pro");
-	b2.setAuthor("Ayush");
-	b2.setEdition(1);
-	b2.setIsbn("23-123-123");
-	b2.setPages(324);
-	b2.setPrice(100);
-	b2.setPublisher("Pearson");
-
-	bookList.push(b1, b2)
+	httpRequest.onreadystatechange = function(){
+		if (httpRequest.readyState == 4) {
+			var jsonData = JSON.parse(httpRequest.responseText);
+			var b1 = new Book();
+			b1.setName(jsonData.name);
+			b1.setAuthor(jsonData.author);
+			b1.setEdition(jsonData.edition);
+			b1.setIsbn(jsonData.isbn);
+			b1.setPages(jsonData.pages);
+			b1.setPrice(jsonData.price);
+			b1.setPublisher(jsonData.publisher);
+			bookList.push(b1);
+		}
+	};
+	httpRequest.open("GET", "bookData.json", true);
+	httpRequest.send();
 })();
+

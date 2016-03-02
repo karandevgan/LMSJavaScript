@@ -4,6 +4,10 @@ document.getElementById("searchbooklink").onclick = showsearchform;
 document.getElementById("searchCriteria").onchange = searchCriteria;
 
 function showsearchform() {
+	document.getElementById("searchbookform").reset();
+	var t = document.getElementById("searchTextBox");
+	t.innerHTML = "";
+	document.getElementById("resultDiv").innerHTML = "";
 	hidediv("addBookDiv");
 	hidediv("listBooksDiv");
 	showdiv("searchBookDiv");

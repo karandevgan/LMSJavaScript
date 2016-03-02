@@ -1,0 +1,9 @@
+{
+	"name":"Hibernate",
+	"author":"Ayush",
+	"edition":2,
+	"isbn":"123-123-123",
+	"pages":320,
+	"price":200,
+	"publisher":"Pearson"
+}
