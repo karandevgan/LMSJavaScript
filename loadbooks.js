@@ -74,21 +74,22 @@ var bookList = [];
 	hideall();
 	var httpRequest = new XMLHttpRequest();
 
-	httpRequest.onreadystatechange = function(){
+	httpRequest.onreadystatechange = function() {
 		if (httpRequest.readyState == 4) {
 			var jsonData = JSON.parse(httpRequest.responseText);
-			var b1 = new Book();
-			b1.setName(jsonData.name);
-			b1.setAuthor(jsonData.author);
-			b1.setEdition(jsonData.edition);
-			b1.setIsbn(jsonData.isbn);
-			b1.setPages(jsonData.pages);
-			b1.setPrice(jsonData.price);
-			b1.setPublisher(jsonData.publisher);
-			bookList.push(b1);
+			for ( var i = 0; i < jsonData.length; i++) {
+				var b1 = new Book();
+				b1.setName(jsonData[i].name);
+				b1.setAuthor(jsonData[i].author);
+				b1.setEdition(jsonData[i].edition);
+				b1.setIsbn(jsonData[i].isbn);
+				b1.setPages(jsonData[i].pages);
+				b1.setPrice(jsonData[i].price);
+				b1.setPublisher(jsonData[i].publisher);
+				bookList.push(b1);
+			}
 		}
 	};
 	httpRequest.open("GET", "bookData.json", true);
 	httpRequest.send();
 })();
-

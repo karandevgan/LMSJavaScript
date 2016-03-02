@@ -1,4 +1,4 @@
-{
+[{
 	"name":"Hibernate",
 	"author":"Ayush",
 	"edition":2,
@@ -6,4 +6,13 @@
 	"pages":320,
 	"price":200,
 	"publisher":"Pearson"
-}
+},
+{
+	"name":"Spring",
+	"author":"Karan",
+	"edition":5,
+	"isbn":"456-789-123",
+	"pages":240,
+	"price":250,
+	"publisher":"Tata McGraw"
+}]
